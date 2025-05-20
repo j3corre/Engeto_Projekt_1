@@ -1,5 +1,5 @@
 """
-projekt_1.py: první projekt do Engeto Online Python Akademie
+main.py: první projekt do Engeto Online Python Akademie
 
 author: Jan Bláha
 email: jan.blaha@bcas.cz"
@@ -42,6 +42,12 @@ USERS = {"bob": "123",
 
 
 def analyze(text):
+    """
+    Prints basic statistics about text given as a parameter.
+
+    Prints number of different word types and a word length histogram.
+    """
+    
     print(
         "There are {0} words in the selected text.".format(
             len(text.split())
