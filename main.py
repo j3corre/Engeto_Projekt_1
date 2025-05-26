@@ -35,80 +35,71 @@ TEXTS = [
     garpike and stingray are also present.""",
 ]
 
-USERS = {"bob": "123",
-         "ann": "pass123",
-         "mike": "password123",
-         "liz": "pass123"}
-
-
-def analyze(text):
-    """
-    Prints basic statistics about text given as a parameter.
-
-    Prints number of different word types and a word length histogram.
-    """
-    
-    print(
-        "There are {0} words in the selected text.".format(
-            len(text.split())
-        )
-    )
-    print(
-        "There are {0} titlecase words.".format(
-            len([t for t in text.split() if t.istitle()])
-        )
-    )
-    print(
-        "There are {0} uppercase words.".format(
-            len([t for t in text.split() if t.isupper()])
-        )
-    )
-    print(
-        "There are {0} lowercase words.".format(
-            len([t for t in text.split() if t.islower()])
-        )
-    )
-    print(
-        "There are {0} numeric strings.".format(
-            len([t for t in text.split() if t.isnumeric()])
-        )
-    )
-    print(
-        "The sum of all the numbers is {0}.".format(
-            sum([int(t) for t in text.split() if t.isnumeric()])
-        )
-    )
-
-    print("-" * 45)
-    print("LEN | " + "OCCURENCIES".center(30, " ") + " | NR.")
-    print("-" * 45)
-    for i in range(1, max([len(t) for t in text.split()]) + 1):
-        print(
-            str(i).rjust(3, " ")
-            + " | "
-            + ("*" * len([t for t in text.split() if len(t) == i]))
-            .ljust(30, " ")
-            + " | "
-            + str(len([t for t in text.split() if len(t) == i]))
-        )
+USERS = {"bob": "123", "ann": "pass123", "mike": "password123", "liz": "pass123"}
 
 username = input("Username: ")
 password = getpass.getpass("Password: ")
+
+num_texts = len(TEXTS)
 
 if USERS[username] == password:
     print("----------------------------------------")
     print("Welcome to the app, " + username)
     print("We have 3 texts to be analyzed.")
     print("----------------------------------------")
-    index = input("Enter a number btw. 1 and 3 to select: ")
+    index = input(f"Enter a number btw. 1 and {num_texts} to select: ")
     print("----------------------------------------")
 
     if index.isnumeric():
         index = int(index) - 1
         if index < 0 or index > 2:
-            print("Number must be between 1 and 3. Exiting.")
+            printf(f"Number must be between 1 and {num_texts}. Exiting.")
         else:
-            analyze(TEXTS[index])
+            words = [t.replace(".", "").replace(",", "") for t in TEXTS[index].split()]
+
+            print("There are {0} words in the selected text.".format(len(words)))
+
+            print(
+                "There are {0} titlecase words.".format(
+                    len([t for t in words if t.istitle()])
+                )
+            )
+
+            print(
+                "There are {0} uppercase words.".format(
+                    len([t for t in words if t.isupper()])
+                )
+            )
+
+            print(
+                "There are {0} lowercase words.".format(
+                    len([t for t in words if t.islower()])
+                )
+            )
+
+            print(
+                "There are {0} numeric strings.".format(
+                    len([t for t in words if t.isnumeric()])
+                )
+            )
+
+            print(
+                "The sum of all the numbers is {0}.".format(
+                    sum([int(t) for t in words if t.isnumeric()])
+                )
+            )
+
+            print("-" * 45)
+            print("LEN | " + "OCCURENCIES".center(30, " ") + " | NR.")
+            print("-" * 45)
+            for i in range(1, max([len(t) for t in words]) + 1):
+                print(
+                    str(i).rjust(3, " ")
+                    + " | "
+                    + ("*" * len([t for t in words if len(t) == i])).ljust(30, " ")
+                    + " | "
+                    + str(len([t for t in words if len(t) == i]))
+                )
     else:
         print("Wrong input. Exiting.")
 else:
