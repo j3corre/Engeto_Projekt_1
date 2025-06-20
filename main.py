@@ -5,8 +5,6 @@ author: Jan Bláha
 email: jan.blaha@bcas.cz"
 """
 
-import getpass
-
 TEXTS = [
     """Situated about 10 miles west of Kemmerer,
     Fossil Butte is a ruggedly impressive
@@ -35,17 +33,20 @@ TEXTS = [
     garpike and stingray are also present.""",
 ]
 
-USERS = {"bob": "123", "ann": "pass123", "mike": "password123", "liz": "pass123"}
+USERS = {"bob": "123",
+         "ann": "pass123",
+         "mike": "password123",
+         "liz": "pass123"}
 
 username = input("Username: ")
-password = getpass.getpass("Password: ")
+password = input("Password: ")
 
 num_texts = len(TEXTS)
 
 if USERS[username] == password:
     print("----------------------------------------")
     print("Welcome to the app, " + username)
-    print("We have 3 texts to be analyzed.")
+    print(f"We have {num_texts} texts to be analyzed.")
     print("----------------------------------------")
     index = input(f"Enter a number btw. 1 and {num_texts} to select: ")
     print("----------------------------------------")
@@ -53,7 +54,7 @@ if USERS[username] == password:
     if index.isnumeric():
         index = int(index) - 1
         if index < 0 or index > 2:
-            printf(f"Number must be between 1 and {num_texts}. Exiting.")
+            print(f"Number must be between 1 and {num_texts}. Exiting.")
         else:
             words = [t.replace(".", "").replace(",", "") for t in TEXTS[index].split()]
 
