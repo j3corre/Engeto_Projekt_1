@@ -53,7 +53,7 @@ if USERS[username] == password:
 
     if index.isnumeric():
         index = int(index) - 1
-        if index < 0 or index > 2:
+        if index < 0 or index > num_texts:
             print(f"Number must be between 1 and {num_texts}. Exiting.")
         else:
             words = [t.replace(".", "").replace(",", "") for t in TEXTS[index].split()]
@@ -93,14 +93,18 @@ if USERS[username] == password:
             print("-" * 45)
             print("LEN | " + "OCCURENCIES".center(30, " ") + " | NR.")
             print("-" * 45)
+
+            pocet_znaku = list()
             for i in range(1, max([len(t) for t in words]) + 1):
-                print(
-                    str(i).rjust(3, " ")
-                    + " | "
-                    + ("*" * len([t for t in words if len(t) == i])).ljust(30, " ")
-                    + " | "
-                    + str(len([t for t in words if len(t) == i]))
-                )
+                pocet_znaku.append(len([t for t in words if len(t) == i]))
+                if pocet_znaku[i - 1] > 0:
+                    print(
+                        str(i).rjust(3, " ")
+                        + " | "
+                        + ("*" * pocet_znaku[i - 1]).ljust(30, " ")
+                        + " | "
+                        + str(pocet_znaku[i - 1])
+                    )
     else:
         print("Wrong input. Exiting.")
 else:
